@@ -1,13 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { useCart } from "../CartContext"; // ✅ adjust path if needed
+import { useCart } from "../CartContext";
 
 const Navbar = () => {
-  const { cart } = useCart(); // ✅ useCart from context
-
-  const totalItems = cart.reduce((acc, item) => acc + (item.quantity || 1), 0);
-  const totalPrice = cart.reduce((acc, item) => acc + (item.price * (item.quantity || 1)), 0);
+  const { cart } = useCart();
+  
+  const totalItems = cart.reduce((sum, item) => sum + (item.quantity || 0), 0);
+  const totalPrice = cart.reduce((sum, item) => sum + (item.price * (item.quantity || 0)), 0);
 
   const menuItems = {
     "IQOS HEETS": [

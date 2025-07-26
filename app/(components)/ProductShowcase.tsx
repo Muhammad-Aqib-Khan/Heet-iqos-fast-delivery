@@ -1,5 +1,6 @@
 // components/ProductShowcase.tsx
 import Image from "next/image";
+import { useCart } from "./CartContext";
 
 type DetailProduct = {
   src: string;
@@ -31,6 +32,7 @@ export default function ProductShowcase({
   testimonial,
   reviewer,
 }: Props) {
+  const { addToCart } = useCart();
   const getDiscount = (original: number, discounted: number) =>
     Math.round(((original - discounted) / original) * 100);
 
@@ -101,6 +103,21 @@ export default function ProductShowcase({
                 discountedPrice={mainProduct.discountedPrice}
               />
             </div>
+
+            {/* Add to Cart Button - Bottom Right */}
+            <div className="absolute bottom-2 sm:bottom-4 right-2 sm:right-4">
+              <button
+                onClick={() => addToCart({
+                  id: `main-${mainProduct.name}`,
+                  name: mainProduct.name,
+                  price: mainProduct.discountedPrice,
+                  image: mainProduct.src
+                })}
+                className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors font-semibold text-sm"
+              >
+                Add to Cart
+              </button>
+            </div>
           </div>
 
           {/* Testimonial Section - Below main image on mobile */}
@@ -156,11 +173,19 @@ export default function ProductShowcase({
                 </div>
               </div>
 
-              {/* Hover overlay for placeholder text */}
-              <div className="absolute inset-0  group-hover:bg-opacity-40 flex items-center justify-center transition-all duration-300">
-                <p className="text-white text-xs text-center px-2 py-1 bg-black bg-opacity-80 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  Detail picture
-                </p>
+              {/* Hover overlay with Add to Cart button */}
+              <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 flex items-center justify-center transition-all duration-300">
+                <button
+                  onClick={() => addToCart({
+                    id: `detail-${product.alt}`,
+                    name: product.alt,
+                    price: product.discountedPrice,
+                    image: product.src
+                  })}
+                  className="bg-red-600 text-white px-3 py-1 rounded text-xs font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-red-700"
+                >
+                  Add to Cart
+                </button>
               </div>
             </div>
           ))}
