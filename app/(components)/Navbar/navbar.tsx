@@ -6,8 +6,8 @@ import { useCart } from "../CartContext";
 const Navbar = () => {
   const { cart } = useCart();
   
-  const totalItems = cart.reduce((sum, item) => sum + (item.quantity || 0), 0);
-  const totalPrice = cart.reduce((sum, item) => sum + (item.price * (item.quantity || 0)), 0);
+  const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+  const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
 
   const menuItems = {
     "IQOS HEETS": [

@@ -7,8 +7,8 @@ import Link from "next/link";
 export default function CartPage() {
   const { cart, removeFromCart, clearCart } = useCart();
 
-  const totalItems = cart.reduce((sum, item) => sum + (item.quantity ?? 0), 0);
-  const totalPrice = cart.reduce((sum, item) => sum + item.price * (item.quantity ?? 0), 0);
+  const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+  const totalPrice = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
   if (cart.length === 0) {
     return (
